@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - redis
+      - keycloak
+      - logstash
+
+  redis:
+    image: redis:alpine
+    ports: ["6379:6379"]
+
+  keycloak:
+    build: ./keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports: ["8080:8080"]
+    volumes:
+      - ./keycloak/realm-config:/opt/keycloak/data/import
+
+  prometheus:
+    build: ./monitoring/prometheus
+    ports: ["9090:9090"]
+
+  grafana:
+    build: ./monitoring/grafana
+    ports: ["3000:3000"]
+
+  logstash:
+    build: ./logging/logstash
+    ports: ["5000:5000"]

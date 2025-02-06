@@ -1,0 +1,29 @@
+{
+    "realm": "retail",
+    "enabled": true,
+    "clients": [
+      {
+        "clientId": "retail-gateway",
+        "enabled": true,
+        "secret": "your-secret",
+        "redirectUris": ["*"],
+        "webOrigins": ["*"],
+        "publicClient": false,
+        "authorizationServicesEnabled": true
+      }
+    ],
+    "users": [
+      {
+        "username": "admin",
+        "enabled": true,
+        "credentials": [{ "type": "password", "value": "admin" }],
+        "realmRoles": ["admin"]
+      }
+    ],
+    "roles": {
+      "realm": [
+        { "name": "admin" },
+        { "name": "customer" }
+      ]
+    }
+  }
