@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Retail API Gateway Dashboards'
+    orgId: 1
+    folder: 'Retail API Gateway'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards 

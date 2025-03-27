@@ -1,0 +1,198 @@
+{
+  "uuid": "0df8af3d-5af6-468a-b722-3fb436b49593",
+  "name": "Product Service Mock",
+  "port": 8001,
+  "hostname": "0.0.0.0",
+  "endpointPrefix": "",
+  "latency": 0,
+  "routes": [
+    {
+      "uuid": "ff05dffa-9be1-45e7-99d9-a2a93a83c729",
+      "documentation": "Health check endpoint",
+      "method": "get",
+      "endpoint": "health",
+      "responses": [
+        {
+          "uuid": "d7aedf8c-cbb0-4dcc-8e2a-0f9c24415309",
+          "body": "{\n  \"status\": \"UP\",\n  \"timestamp\": \"{{now}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a79d5c59-4f4a-4e2e-b1b8-13a8c5a29a7d",
+      "documentation": "List all products",
+      "method": "get",
+      "endpoint": "api/products",
+      "responses": [
+        {
+          "uuid": "c5c09f8b-ba00-4e19-a7e7-ed73f21e9bd5",
+          "body": "{\n  \"data\": [\n    {\n      \"id\": \"prod-001\",\n      \"sku\": \"TSHIRT-RED-M\",\n      \"name\": \"Red T-Shirt\",\n      \"description\": \"A comfortable red t-shirt made of 100% cotton\",\n      \"category\": \"clothing\",\n      \"price\": {\n        \"amount\": 19.99,\n        \"currency\": \"USD\",\n        \"is_discounted\": false\n      },\n      \"inventory\": 45,\n      \"images\": [\n        {\n          \"url\": \"https://example.com/images/tshirt-red-1.jpg\",\n          \"alt_text\": \"Red T-Shirt Front View\",\n          \"is_primary\": true\n        },\n        {\n          \"url\": \"https://example.com/images/tshirt-red-2.jpg\",\n          \"alt_text\": \"Red T-Shirt Back View\",\n          \"is_primary\": false\n        }\n      ],\n      \"attributes\": {\n        \"color\": \"Red\",\n        \"size\": \"Medium\",\n        \"material\": \"100% Cotton\"\n      },\n      \"created_at\": \"2023-01-15T12:00:00Z\",\n      \"updated_at\": \"2023-03-20T10:15:30Z\"\n    },\n    {\n      \"id\": \"prod-002\",\n      \"sku\": \"JEANS-BLUE-32\",\n      \"name\": \"Blue Jeans\",\n      \"description\": \"Classic blue jeans with a straight fit\",\n      \"category\": \"clothing\",\n      \"price\": {\n        \"amount\": 49.99,\n        \"currency\": \"USD\",\n        \"is_discounted\": true,\n        \"original_amount\": 59.99\n      },\n      \"inventory\": 28,\n      \"images\": [\n        {\n          \"url\": \"https://example.com/images/jeans-blue-1.jpg\",\n          \"alt_text\": \"Blue Jeans Front View\",\n          \"is_primary\": true\n        }\n      ],\n      \"attributes\": {\n        \"color\": \"Blue\",\n        \"size\": \"32\",\n        \"material\": \"Denim\",\n        \"style\": \"Straight Fit\"\n      },\n      \"created_at\": \"2023-02-10T09:30:00Z\",\n      \"updated_at\": \"2023-03-15T14:20:45Z\"\n    },\n    {\n      \"id\": \"prod-003\",\n      \"sku\": \"SNEAKER-WHT-42\",\n      \"name\": \"White Sneakers\",\n      \"description\": \"Comfortable white sneakers for everyday wear\",\n      \"category\": \"footwear\",\n      \"price\": {\n        \"amount\": 79.99,\n        \"currency\": \"USD\",\n        \"is_discounted\": false\n      },\n      \"inventory\": 15,\n      \"images\": [\n        {\n          \"url\": \"https://example.com/images/sneaker-white-1.jpg\",\n          \"alt_text\": \"White Sneakers Side View\",\n          \"is_primary\": true\n        },\n        {\n          \"url\": \"https://example.com/images/sneaker-white-2.jpg\",\n          \"alt_text\": \"White Sneakers Top View\",\n          \"is_primary\": false\n        }\n      ],\n      \"attributes\": {\n        \"color\": \"White\",\n        \"size\": \"42 EU\",\n        \"material\": \"Leather\"\n      },\n      \"created_at\": \"2023-01-20T11:45:00Z\",\n      \"updated_at\": \"2023-03-18T16:10:20Z\"\n    }\n  ],\n  \"meta\": {\n    \"total_count\": 3\n  },\n  \"pagination\": {\n    \"current_page\": 1,\n    \"total_pages\": 1,\n    \"page_size\": 20\n  }\n}",
+          "latency": 150,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "84d10fe2-be24-4ec3-a99c-f84a05f6b386",
+      "documentation": "Get a specific product by ID",
+      "method": "get",
+      "endpoint": "api/products/:productId",
+      "responses": [
+        {
+          "uuid": "f2a94d0e-eb97-4680-979c-1c3bb915d82a",
+          "body": "{\n  \"data\": {\n    \"id\": \"{{urlParam 'productId'}}\",\n    \"sku\": \"TSHIRT-RED-M\",\n    \"name\": \"Red T-Shirt\",\n    \"description\": \"A comfortable red t-shirt made of 100% cotton\",\n    \"category\": \"clothing\",\n    \"price\": {\n      \"amount\": 19.99,\n      \"currency\": \"USD\",\n      \"is_discounted\": false\n    },\n    \"inventory\": 45,\n    \"images\": [\n      {\n        \"url\": \"https://example.com/images/tshirt-red-1.jpg\",\n        \"alt_text\": \"Red T-Shirt Front View\",\n        \"is_primary\": true\n      },\n      {\n        \"url\": \"https://example.com/images/tshirt-red-2.jpg\",\n        \"alt_text\": \"Red T-Shirt Back View\",\n        \"is_primary\": false\n      }\n    ],\n    \"attributes\": {\n      \"color\": \"Red\",\n      \"size\": \"Medium\",\n      \"material\": \"100% Cotton\"\n    },\n    \"created_at\": \"2023-01-15T12:00:00Z\",\n    \"updated_at\": \"2023-03-20T10:15:30Z\"\n  },\n  \"meta\": {}\n}",
+          "latency": 100,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "productId",
+              "value": "prod-001",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "88cf5aaf-29cb-4bdc-9c5f-67b91a0de9f1",
+          "body": "{\n  \"data\": {\n    \"id\": \"{{urlParam 'productId'}}\",\n    \"sku\": \"JEANS-BLUE-32\",\n    \"name\": \"Blue Jeans\",\n    \"description\": \"Classic blue jeans with a straight fit\",\n    \"category\": \"clothing\",\n    \"price\": {\n      \"amount\": 49.99,\n      \"currency\": \"USD\",\n      \"is_discounted\": true,\n      \"original_amount\": 59.99\n    },\n    \"inventory\": 28,\n    \"images\": [\n      {\n        \"url\": \"https://example.com/images/jeans-blue-1.jpg\",\n        \"alt_text\": \"Blue Jeans Front View\",\n        \"is_primary\": true\n      }\n    ],\n    \"attributes\": {\n      \"color\": \"Blue\",\n      \"size\": \"32\",\n      \"material\": \"Denim\",\n      \"style\": \"Straight Fit\"\n    },\n    \"created_at\": \"2023-02-10T09:30:00Z\",\n    \"updated_at\": \"2023-03-15T14:20:45Z\"\n  },\n  \"meta\": {}\n}",
+          "latency": 100,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "productId",
+              "value": "prod-002",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "a3bb6d9b-d1b0-482d-9515-70fb8c4c42d0",
+          "body": "{\n  \"data\": {\n    \"id\": \"{{urlParam 'productId'}}\",\n    \"sku\": \"SNEAKER-WHT-42\",\n    \"name\": \"White Sneakers\",\n    \"description\": \"Comfortable white sneakers for everyday wear\",\n    \"category\": \"footwear\",\n    \"price\": {\n      \"amount\": 79.99,\n      \"currency\": \"USD\",\n      \"is_discounted\": false\n    },\n    \"inventory\": 15,\n    \"images\": [\n      {\n        \"url\": \"https://example.com/images/sneaker-white-1.jpg\",\n        \"alt_text\": \"White Sneakers Side View\",\n        \"is_primary\": true\n      },\n      {\n        \"url\": \"https://example.com/images/sneaker-white-2.jpg\",\n        \"alt_text\": \"White Sneakers Top View\",\n        \"is_primary\": false\n      }\n    ],\n    \"attributes\": {\n      \"color\": \"White\",\n      \"size\": \"42 EU\",\n      \"material\": \"Leather\"\n    },\n    \"created_at\": \"2023-01-20T11:45:00Z\",\n    \"updated_at\": \"2023-03-18T16:10:20Z\"\n  },\n  \"meta\": {}\n}",
+          "latency": 100,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "productId",
+              "value": "prod-003",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "b8c5d9b5-6a7e-4c6c-8e1a-04b3f4e5d6c7",
+          "body": "{\n  \"detail\": \"Product not found\"\n}",
+          "latency": 50,
+          "statusCode": 404,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "ff05dffa-9be1-45e7-99d9-a2a93a83c729"
+    },
+    {
+      "type": "route",
+      "uuid": "a79d5c59-4f4a-4e2e-b1b8-13a8c5a29a7d"
+    },
+    {
+      "type": "route",
+      "uuid": "84d10fe2-be24-4ec3-a99c-f84a05f6b386"
+    }
+  ]
+} 

@@ -1,0 +1,28 @@
+# API Framework
+fastapi==0.103.1
+uvicorn==0.23.2
+pydantic==2.3.0
+python-jose==3.3.0
+python-multipart==0.0.6
+
+# HTTP Client
+httpx==0.24.1
+
+# Authentication
+python-keycloak==2.16.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pyjwt==2.6.0
+
+# Rate Limiting
+redis==4.6.0
+
+# Logging & Monitoring
+prometheus-client==0.17.1
+structlog==23.1.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic-settings==2.0.3
+starlette-exporter==0.16.0
+tenacity==8.2.3 

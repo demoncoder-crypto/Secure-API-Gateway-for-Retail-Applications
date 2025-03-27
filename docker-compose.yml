@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # API Gateway (FastAPI application)
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_REALM=retail
+      - KEYCLOAK_CLIENT_ID=retail-api-gateway
+      - KEYCLOAK_CLIENT_SECRET=retail-api-gateway-secret
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PRODUCT_SERVICE_URL=http://product-service:3000
+    depends_on:
+      - keycloak
+      - redis
+      - product-service
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # Keycloak - Identity and Access Management
+  keycloak:
+    build:
+      context: ./keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://keycloak-db:5432/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=keycloak
+    depends_on:
+      - keycloak-db
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # PostgreSQL for Keycloak
+  keycloak-db:
+    image: postgres:14
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # Redis for rate limiting and caching
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # Mock Product Service
+  product-service:
+    build:
+      context: ./product-service
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - retail-network
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    networks:
+      - retail-network
+
+networks:
+  retail-network:
+    driver: bridge
+
+volumes:
+  keycloak-data:
+  redis-data:
+  prometheus-data:
+  grafana-data: 

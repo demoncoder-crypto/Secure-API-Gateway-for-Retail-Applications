@@ -1,29 +1,108 @@
 {
     "realm": "retail",
     "enabled": true,
+    "displayName": "Retail Applications",
+    "sslRequired": "external",
+    "registrationAllowed": false,
     "clients": [
       {
-        "clientId": "retail-gateway",
+        "clientId": "retail-api-gateway",
+        "name": "Retail API Gateway",
+        "description": "Client for the Retail API Gateway",
         "enabled": true,
-        "secret": "your-secret",
+        "clientAuthenticatorType": "client-secret",
+        "secret": "retail-api-gateway-secret",
         "redirectUris": ["*"],
         "webOrigins": ["*"],
+        "protocol": "openid-connect",
         "publicClient": false,
+        "standardFlowEnabled": true,
+        "directAccessGrantsEnabled": true,
+        "serviceAccountsEnabled": true,
         "authorizationServicesEnabled": true
-      }
-    ],
-    "users": [
+      },
       {
-        "username": "admin",
+        "clientId": "retail-frontend",
+        "name": "Retail Frontend",
+        "description": "Client for the retail frontend application",
         "enabled": true,
-        "credentials": [{ "type": "password", "value": "admin" }],
-        "realmRoles": ["admin"]
+        "clientAuthenticatorType": "client-secret",
+        "secret": "retail-frontend-secret",
+        "redirectUris": ["*"],
+        "webOrigins": ["*"],
+        "protocol": "openid-connect",
+        "publicClient": true,
+        "standardFlowEnabled": true,
+        "directAccessGrantsEnabled": true
       }
     ],
     "roles": {
       "realm": [
-        { "name": "admin" },
-        { "name": "customer" }
+        {
+          "name": "user",
+          "description": "Regular user with basic access"
+        },
+        {
+          "name": "admin",
+          "description": "Administrator with full access"
+        },
+        {
+          "name": "store_manager",
+          "description": "Store manager with access to store operations"
+        }
       ]
-    }
+    },
+    "users": [
+      {
+        "username": "admin",
+        "enabled": true,
+        "emailVerified": true,
+        "email": "admin@retail.com",
+        "firstName": "Admin",
+        "lastName": "User",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "admin123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["admin"],
+        "clientRoles": {
+          "retail-api-gateway": ["admin"]
+        }
+      },
+      {
+        "username": "user",
+        "enabled": true,
+        "emailVerified": true,
+        "email": "user@retail.com",
+        "firstName": "Regular",
+        "lastName": "User",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "user123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["user"]
+      },
+      {
+        "username": "manager",
+        "enabled": true,
+        "emailVerified": true,
+        "email": "manager@retail.com",
+        "firstName": "Store",
+        "lastName": "Manager",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "manager123",
+            "temporary": false
+          }
+        ],
+        "realmRoles": ["store_manager"]
+      }
+    ]
   }
